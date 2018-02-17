@@ -1,12 +1,16 @@
 package com.azzus.Entity;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
  * Created by azzus on 2/12/2018.
  */
+@Entity
 public class SavingTransaction {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Date date;
     private String description;
@@ -15,8 +19,9 @@ public class SavingTransaction {
     private double amount;
     private BigDecimal availableBalance;
 
-
-    private SavingAccount savingsAccount;
+    @ManyToOne
+    @JoinColumn(name = "saving_account_id")
+    private SavingAccount savingAccount;
 
     public SavingTransaction() {
     }
@@ -29,7 +34,7 @@ public class SavingTransaction {
         this.status = status;
         this.amount = amount;
         this.availableBalance = availableBalance;
-        this.savingsAccount = savingsAccount;
+        this.savingAccount = savingsAccount;
     }
 
     public Long getId() {
@@ -89,10 +94,10 @@ public class SavingTransaction {
     }
 
     public SavingAccount getSavingsAccount() {
-        return savingsAccount;
+        return savingAccount;
     }
 
     public void setSavingsAccount(SavingAccount savingsAccount) {
-        this.savingsAccount = savingsAccount;
+        this.savingAccount = savingsAccount;
     }
 }

@@ -1,16 +1,24 @@
 package com.azzus.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
 /**
  * Created by azzus on 2/12/2018.
  */
+@Entity
 public class SavingAccount {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private int accountNumber;
     private BigDecimal accountbalance;
 
+    @OneToMany(mappedBy = "savingAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<SavingTransaction> savingTransactionList;
 
     public Long getId() {

@@ -13,12 +13,13 @@ import java.util.List;
 public class PrimaryAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private Long id;
 
-    private  int accountNumber;
+    private int accountNumber;
     private BigDecimal accountbalance;
-    @OneToMany(mappedBy = "PrimaryAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+
+    @OneToMany(mappedBy = "primaryAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<PrimaryTransaction> primaryTransactionList;
 

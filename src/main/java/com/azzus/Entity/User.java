@@ -1,32 +1,44 @@
 package com.azzus.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * Created by azzus on 2/12/2018.
  */
-
+@Entity
 public class User {
-
+    //field
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "userId", nullable = false, updatable = false)
     private Long ID;
     private String Username;
     private String password;
     private String firstname;
     private String lastname;
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
     private String phone;
 
-    private boolean enabled=true;
+    private boolean enabled = true;
+    @OneToOne
     private PrimaryAccount primaryAccount;
+    @OneToOne
     private SavingAccount savingAccount;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Appointment> appointmentList;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Recipent> recipentList;
 
+    //
     public User(Long ID) {
         this.ID = ID;
     }
-
-    private List<Recipent> recipentList;
 
 
     public User() {
